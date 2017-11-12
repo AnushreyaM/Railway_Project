@@ -2,5 +2,5 @@
 
 Run program from RailwayMenu as starting point
 
-javac RailwayMenu.java
-java RailwayMenu
+$ javac Train.java Railway.java Ticket.java Passenger.java RailwayMenu.java
+$ java RailwayMenu

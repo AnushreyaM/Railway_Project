@@ -35,6 +35,11 @@ class Railway
 	{
 	
 	}
+
+	public void getPassengerDetails(int trainNumber, int ticketNumber)
+	{
+
+	}
 	
 }
 

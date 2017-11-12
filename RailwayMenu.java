@@ -5,7 +5,12 @@ class RailwayMenu
 
 	public static void main(String[] args)
 	{
-		Railway railway = Railway.getInstance(); //Singleton done
+		/***************************************************
+		**                                                **
+		**                    Singleton                   **
+		**                                                **
+		****************************************************/
+		Railway railway = Railway.getInstance();
 
 		Train t1 = new PassengerTrain();
 		t1.populate("Bangalore", "Kharagpur", 1);
@@ -28,7 +33,8 @@ class RailwayMenu
 			System.out.println("1. See all trains");
 			System.out.println("2. Book a ticket");
 			System.out.println("3. Show ticket");
-			System.out.println("4. Quit");
+			System.out.println("4. Get Passenger Details");
+			System.out.println("9. Quit"); //changed to 9 to facilitate seamless addition of menu options
 
 			Scanner sc = new Scanner(System.in);
 			ch = sc.nextInt();
@@ -45,10 +51,14 @@ class RailwayMenu
 				case 3:
 					railway.showTicket();
 					break;
+				case 4:
+					System.out.println("Enter train number and ticket number:\t");
+					railway.getPassengerDetails(sc.nextInt(), sc.nextInt());
+					break;
 				
 			}
 		
-		}while(ch != 4);
+		}while(ch != 9);
 	}
 
 }

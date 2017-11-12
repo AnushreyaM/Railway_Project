@@ -4,6 +4,7 @@ class Train
 	public String source;
 	public String destination;
 	public int tno;
+	public Passenger[] passengerList; //added by Ananya
 	
 	public void display()
 	{
