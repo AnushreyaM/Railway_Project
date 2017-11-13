@@ -26,7 +26,22 @@ class PassengerTrain extends Train
 	int num_People;
 	int firstclass_seats;
 	int secondclass_seats;
-	
-	// ANJALI - write a populate function here which populates all attributes of train and passenger train
-	
+	int current_firstclass_seats = 0;
+	int current_secondclass_seats = 0;
+	int max_firstclass_seats = 5;
+	int max_secondclass_seats = 5;
+
+	boolean check_firstclass_availability()
+	{
+		if(current_firstclass_seats < max_firstclass_seats)
+			return true;
+		return false;
+	}
+
+	boolean check_secondclass_availability()
+	{
+		if(current_secondclass_seats < max_secondclass_seats)
+			return true;
+		return false;
+	}
 }
