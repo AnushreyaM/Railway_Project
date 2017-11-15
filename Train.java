@@ -1,24 +1,3 @@
-
-class Train
-{
-	public String source;
-	public String destination;
-	public int tno;
-	public void display()
-	{
-		System.out.println("Train no: "+tno+" Train source: "+source+" Train destination: "+destination);
-		System.out.println();
-	}
-	
-	public void populate( String source, String destination, int tno)
-	{
-		this.source = source;
-		this.destination = destination;
-		this.tno = tno;
-	}
-	
-}
-
 class SeatsNotAvailableException extends Exception
 {
     public SeatsNotAvailableException(String s)
@@ -27,55 +6,73 @@ class SeatsNotAvailableException extends Exception
     }
 }
 
-class PassengerTrain extends Train
+class MaxSeats
 {
-	int num_People = 0;
-	int firstclass_seats;
-	int secondclass_seats;
-	int ecoclass_seats;
-	int current_firstclass_seats = 0;
-	int current_secondclass_seats = 0;
-	int current_ecoclass_seats = 0;
-	int max_firstclass_seats = 1;
-	int max_secondclass_seats = 2;
-	int max_ecoclass_seats = 2;
-	int max_seats = 5
-    public Passenger[] passengerList; //added by Ananya
-	
-    
-	boolean check_firstclass_availability()
+	public static final int NUMOFCLASSES = 3;
+	public static final int FIRSTCLASS = 1;
+	public static final int SECONDCLASS = 2;
+	public static final int ECONOMYCLASS = 2;
+	public static final int TOTAL = 5;
+}
+
+class Train
+{
+	public String source;
+	public String destination;
+	public int tno;
+
+	public Train(String source, String destination, int tno)
 	{
-		if(current_firstclass_seats < max_firstclass_seats)
-			return true;
-		return false;
+		this.source = source;
+		this.destination = destination;
+		this.tno = tno;
 	}
 
-	boolean check_secondclass_availability()
+	public void display()
 	{
-		if(current_secondclass_seats < max_secondclass_seats)
-			return true;
-		return false;
-	}
-	boolean check_ecoclass_availability()
+		System.out.println("Train no: " + tno);
+		System.out.println("Train source: " + source);
+		System.out.println("Train destination: " + destination);
+		System.out.println();
+	}	
+}
+
+class PassengerTrain extends Train
+{
+	int num_People = 0; // = total # seats taken
+	int[] seatsTaken = new int[4];
+    public Passenger[] passengerList;
+	
+	public PassengerTrain(String source, String destination, int tno)
 	{
-		if(current_ecoclass_seats < max_ecoclass_seats)
-			return true;
-		return false;
+		super(source, destination, tno);
+		for(int i = 0; i <= MaxSeats.NUMOFCLASSES; ++i)
+		{
+			seatsTaken[i] = 0;
+		}
 	}
-    boolean check_availability()
+
+    int[] getAvailableSeats()
     {
-        return ((check_firstclass_availability() || check_secondclass_availability()) || (check_secondclass_availability() || check_ecoclass_availability()));
+    	int[] seats = new int[4];
+    	seats[1] = MaxSeats.FIRSTCLASS - seatsTaken[1];
+    	seats[2] = MaxSeats.SECONDCLASS - seatsTaken[2];
+    	seats[3] = MaxSeats.ECONOMYCLASS - seatsTaken[3];
+    	return seats;
     }
    
-   
-   void addPassenger(Passenger p) throws SeatsNotAvailableException
+   void updatePassengerList(Passenger p) throws SeatsNotAvailableException
    {
         try
         {
-            if(num_People + 1 > max_seats)
+            if(num_People + 1 > MaxSeats.TOTAL)
                 throw new SeatsNotAvailableException("Train full: Seats not available");
             passengerList[num_People + 1] = p;
             num_People++;
+        }
+        catch(Exception e)
+        {
+        	System.out.println(e);
         }
    }
    

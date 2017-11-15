@@ -5,25 +5,15 @@ enum PassengerType
 
 class Passenger
 {
-	//ANANYA - You can have different types of passengers like adult, child .
-	// You need to implement search in two ways
-	
-	//Search s = new BinarySearch();
-	// or new LinearSearch();
 	private String name;
 	private PassengerType type;
- 	private Ticket ticket; //change to list of ticketNumber
+	private Ticket ticket;
+	private int ticket_count = 0;
 
 	public Passenger(String name, PassengerType type)
 	{
 		this.name = name;
 		this.type = type;
-	}
-
-	public Passenger(String name, PassengerType type, Ticket ticket)
-	{
-		this(name, type);
-		this.ticket = ticket;
 	}
 
 	public String getName()

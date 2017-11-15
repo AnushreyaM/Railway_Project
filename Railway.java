@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 class Railway
 {
@@ -46,5 +47,9 @@ class Railway
 
 	}
 	
+	public PassengerTrain getTrain(int trainNumber)
+	{
+		return new PassengerTrain("X", "Y", 4);
+	}
 }
 
