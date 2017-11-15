@@ -18,7 +18,6 @@ class Train
 		this.destination = destination;
 		this.tno = tno;
 	}
-	
 }
 
 class PassengerTrain extends Train

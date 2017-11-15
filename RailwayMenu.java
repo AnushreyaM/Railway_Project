@@ -2,20 +2,20 @@ import java.util.*;
 
 class RailwayMenu
 {
-
 	public static void main(String[] args)
 	{
 		/***************************************************
-		**                                                **
 		**                    Singleton                   **
-		**                                                **
 		****************************************************/
 		Railway railway = Railway.getInstance();
 
+		/***************************************************
+		**                      Liskov                    **
+		****************************************************/
 		Train t1 = new PassengerTrain();
 		t1.populate("Bangalore", "Kharagpur", 1);
 		
-		Train t2 = new PassengerTrain(); //Liskov done - wherever a superclass object can be used a subclass object can replace it
+		Train t2 = new PassengerTrain();
 		t2.populate("Yeshwanthpur", "Vishakapatnam", 2);
 		
 		Train t3 = new PassengerTrain();
@@ -33,8 +33,8 @@ class RailwayMenu
 			System.out.println("1. See all trains");
 			System.out.println("2. Book a ticket");
 			System.out.println("3. Show ticket");
-			System.out.println("4. Get Passenger Details");
-			System.out.println("9. Quit"); //changed to 9 to facilitate seamless addition of menu options
+			System.out.println("4. Display Passenger Details");
+			System.out.println("9. Quit");
 
 			Scanner sc = new Scanner(System.in);
 			ch = sc.nextInt();
@@ -62,17 +62,3 @@ class RailwayMenu
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

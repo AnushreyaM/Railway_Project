@@ -12,7 +12,7 @@ class Passenger
 	// or new LinearSearch();
 	private String name;
 	private PassengerType type;
-	private Ticket ticket;
+ 	private Ticket ticket; //change to list of ticketNumber
 
 	public Passenger(String name, PassengerType type)
 	{

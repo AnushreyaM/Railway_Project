@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Railway
 {
 
@@ -28,7 +30,10 @@ class Railway
 	
 	public void bookTicket()
 	{
-	
+		//login / signup
+		//seat availability
+
+		
 	}
 	
 	public void showTicket()
