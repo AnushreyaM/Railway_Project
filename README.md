@@ -2,7 +2,9 @@
 
 Run program from RailwayMenu as starting point
 
-'''shell
+Commands:
+
+'''
 $ javac Train.java Railway.java Ticket.java Passenger.java RailwayMenu.java BookTicket.java
 $ java RailwayMenu
 '''
