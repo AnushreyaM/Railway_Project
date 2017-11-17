@@ -1,28 +1,25 @@
 import java.util.*;
+import java.sql.*;
 
 class RailwayMenu
 {
 	public static Passenger currentPassenger;
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
 		/***************************************************
 		**                    Singleton                   **
 		****************************************************/
-		Railway railway = Railway.getInstance();
+		Railway railway = Railway.getInstance();  
+		ResultSet rs = JavaSQL.executeSQL("select * from train");  
+		int i = 0;
+		while(rs!=null && rs.next()) 
+		{ 
+				/***************************************************
+				**                      Liskov                    **
+				****************************************************/
+			railway.trains[i++] = new PassengerTrain(rs.getString(1), rs.getString(2), rs.getInt(6));
+		}
 
-		/***************************************************
-		**                      Liskov                    **
-		****************************************************/
-		Train t1 = new PassengerTrain("A", "B", 1); ///////////move this part to Railway.java
-												///////read this info from a file (database)
-		
-		Train t2 = new PassengerTrain("C", "D", 2);
-		
-		Train t3 = new PassengerTrain("E", "F", 3);
-		
-		railway.trains[0] = t1;
-		railway.trains[1] = t2;
-		railway.trains[2] = t3;
 		int ch;
 
 		do

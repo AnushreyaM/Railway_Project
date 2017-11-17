@@ -1,9 +1,10 @@
 import java.util.*;
+import java.sql.*;
 
 class BookTicket
 {
 	public Ticket ticket = null;
-
+	public static int pno = 0;
 	public Ticket bookTicket()
 	{
 		// show all trains - user selects a train object
@@ -40,8 +41,11 @@ class BookTicket
 		System.out.print("Enter passenger name: ");
 		pname = scanner.next();
 
+
 		ticket = Ticket.createTicket(train, pname); ////////////////////
-		System.out.println(train + " " + ticket);
+		String ticketQuery = "INSERT INTO ticket VALUES("+ticket.getTicketNumber()+", "+train.tno+", \""+
+			pname+"\""+")";
+		JavaSQL.executeSQLUpdate(ticketQuery);
 
 		passenger = new Passenger(pname, PassengerType.INFANT);
 		RailwayMenu.currentPassenger = passenger;
@@ -66,6 +70,12 @@ class BookTicket
 		}
 		if(payment.acceptPayment(100))
 			passenger.setTicket(ticket); // need to register the fact that passenger has ticket
+
+		String passengerQuery = "INSERT INTO passenger " + "VALUES("+pno+",\"abc\", \"abc\", \""+pname+
+			"\","+ticket.getTicketNumber()+","+train.tno+")";
+
+		JavaSQL.executeSQLUpdate(passengerQuery);
+		pno++;  // new passenger id
 		return ticket;
 	}
 }
