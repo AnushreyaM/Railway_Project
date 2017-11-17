@@ -9,7 +9,7 @@ class BookTicket
 		// show all trains - user selects a train object
 		// show seat availability in the train for all classes
 		// take type of ticket
-		System.out.println("ENtering");
+		System.out.println("Entering");
 		int classPreference;
 		int paymentPreference;
 		int[] availableSeats;
