@@ -43,7 +43,7 @@ class RailwayMenu
 					railway.showTrains();
 					break;
 				case 2:
-					railway.bookTicket();;
+					railway.bookTicket();
 					break;
 				case 3:
 					railway.showTicket();

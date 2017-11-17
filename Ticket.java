@@ -51,7 +51,7 @@ class Ticket
 
 	public void display()
 	{ 
-		System.out.println("----------------Ticket-------------");
+		System.out.println("----------------Ticket-----------------");
 		System.out.println("Ticket Price: "+price);
 		System.out.println("Ticket Number: "+ ticketNumber);
 		System.out.println("Source: "+train.source);
