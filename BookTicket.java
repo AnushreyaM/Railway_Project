@@ -2,17 +2,19 @@ import java.util.*;
 
 class BookTicket
 {
-	public static Ticket bookTicket()
+	public Ticket ticket = null;
+
+	public Ticket bookTicket()
 	{
 		// show all trains - user selects a train object
 		// show seat availability in the train for all classes
 		// take type of ticket
+		System.out.println("ENtering");
 		int classPreference;
 		int paymentPreference;
 		int[] availableSeats;
 
 		Scanner scanner = new Scanner(System.in);
-		Ticket ticket = null;
 		PassengerTrain train = null;
 		Railway railway = Railway.getInstance();
 		
@@ -34,10 +36,15 @@ class BookTicket
 			default: System.out.println("Wrong class entered. Aborting.."); //use loop instead
 		}
 
-		ticket = Ticket.createTicket("Passenger Name Goes Here"); ////////////////////
+		ticket = Ticket.createTicket(train, "Passenger Name Goes Here"); ////////////////////
+		System.out.println(train + " " + ticket);
+		Passenger passenger; String pname;
+		System.out.println("Enter passenger Name");
+		pname = scanner.next();
+		passenger = new Passenger(pname, PassengerType.INFANT);
 		try
 		{
-			train.updatePassengerList(new Passenger("ABCD", PassengerType.INFANT)); ////////////////////
+			train.updatePassengerList(passenger); ////////////////////
 		}
 		catch(Exception e)
 		{
@@ -54,20 +61,45 @@ class BookTicket
 			case 1: payment = new CardPayment(); break;
 			case 2: payment = new WalletPayment(); break;
 		}
-		payment.acceptPayment(100);
-
+		if(payment.acceptPayment(100))
+			passenger.setTicket(ticket); // need to register the fact that passenger has ticket
 		return ticket;
 	}
 }
 
 class Registration extends BookTicket
 {
-	public static void login()
+	BookTicket bookTicket_obj;
+	
+	public Ticket bookTicket()
 	{
+		bookTicket_obj = new BookTicket();
+		String username = "abc";
+		String psswd = "abc";
+		ticket = null;
+		System.out.println("Do you want to 1. sign up? or 2. log in?");
+		Scanner sc = new Scanner(System.in);
+		int choice ;
+		choice = sc.nextInt();
 
+		switch(choice)
+		{
+			case 1:
+			break;
+			case 2:
+				String u = sc.next();
+				String p = sc.next();
+				System.out.println(u+ " "+ username + " " + p + " " + psswd);
+				if (u.equals(username) && p.equals(psswd))
+				{
+					System.out.println("Access Granted");
+					ticket = bookTicket_obj.bookTicket();
+					ticket.display();
+				}
+			break;
+		}
+		return ticket;
 	}
-	public static void signup()
-	{
-		
-	}
+
+
 }

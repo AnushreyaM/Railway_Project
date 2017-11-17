@@ -31,10 +31,10 @@ class Railway
 	
 	public void bookTicket()
 	{
-		//login / signup
-		//seat availability
-
 		
+		Registration r = new Registration();
+		Ticket t = r.bookTicket();
+		t.display();
 	}
 	
 	public void showTicket()

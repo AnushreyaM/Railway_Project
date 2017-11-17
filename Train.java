@@ -41,7 +41,7 @@ class PassengerTrain extends Train
 {
 	int num_People = 0; // = total # seats taken
 	int[] seatsTaken = new int[4];
-    public Passenger[] passengerList;
+    public Passenger[] passengerList = new Passenger[MaxSeats.TOTAL];
 	
 	public PassengerTrain(String source, String destination, int tno)
 	{
@@ -63,16 +63,18 @@ class PassengerTrain extends Train
    
    void updatePassengerList(Passenger p) throws SeatsNotAvailableException
    {
+   		System.out.println("Updating passengerList");
         try
         {
             if(num_People + 1 > MaxSeats.TOTAL)
                 throw new SeatsNotAvailableException("Train full: Seats not available");
             passengerList[num_People + 1] = p;
             num_People++;
+            System.out.println("Number of people incremented to "+num_People);
         }
         catch(Exception e)
         {
-        	System.out.println(e);
+        	System.out.println("Exception in updatePassengerList "+e);
         }
    }
    

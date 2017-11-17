@@ -34,18 +34,29 @@ class Ticket
 	{
 
 	}
-	protected Ticket(int price, String passengerName)
+	protected Ticket(int price, String passengerName, Train train)
 	{
 		this.price = price;
 		this.name = passengerName;
+		this.train = train;
 	}
 	
-	public static Ticket createTicket(String passengerName)
+	public static Ticket createTicket(Train t, String passengerName)
 	{
 		/*t = new Ticket(1000, passengerName);
 		System.out.println("called base class");
 		return t;*/
-		return null;
+		return new Ticket(1000, passengerName, t);
+	}
+
+	public void display()
+	{ 
+		System.out.println("----------------Ticket-------------");
+		System.out.println("Ticket Price: "+price);
+		System.out.println("Ticket Number: "+ ticketNumber);
+		System.out.println("Source: "+train.source);
+		System.out.println("Destination: "+train.destination);
+
 	}
 	
 }
@@ -56,10 +67,10 @@ class FirstClass extends Ticket
 	//Ticket t; //not needed, FirstClass already extends Ticket
 	
 
-	public static Ticket createTicket(String passengerName)
+	public static Ticket createTicket(Train t, String passengerName)
 	{
 
-		return new Ticket(3000, passengerName);
+		return new Ticket(3000, passengerName, t);
 		//System.out.println("called firstclass");
 		//return t;
 	}
@@ -70,9 +81,9 @@ class SecondClass extends Ticket
 	//Ticket t;
 	
 
-	public static Ticket createTicket(String passengerName)
+	public static Ticket createTicket(Train t, String passengerName)
 	{
-		return new Ticket(2000, passengerName);
+		return new Ticket(2000, passengerName, t);
 		//System.out.println("called secondclass");
 		//return t;
 	}
@@ -83,9 +94,9 @@ class EconomyClass extends Ticket
 {
 	//Ticket t;
 	
-	public static Ticket createTicket(String passengerName)
+	public static Ticket createTicket(Train t, String passengerName)
 	{
-		return new Ticket(500, passengerName);
+		return new Ticket(500, passengerName, t);
 		//System.out.println("called economyclass");
 		//return t;
 	}

@@ -28,7 +28,7 @@ import java.util.*;
 
 interface Payment
 {
-	public void acceptPayment(int amount);
+	public boolean acceptPayment(int amount); // changed return type to boolean, need to see if accepted or not
 	public void displayDetails();
 }
 
@@ -39,7 +39,7 @@ class CardPayment implements Payment
 	private int amount;
 	private static Scanner scanner = new Scanner(System.in);
 
-	public void acceptPayment(int amount)
+	public boolean acceptPayment(int amount)
 	{
 		this.amount = amount;
 		System.out.println("\t\tProcessing Payment for INR" + amount);
@@ -48,6 +48,7 @@ class CardPayment implements Payment
 		System.out.println("\nEnter name on card:");
 		nameOnCard = scanner.next();
 		System.out.println("\n\n\t\tPayment accepted.");
+		return true;
 	}
 
 	public void displayDetails()
@@ -65,7 +66,7 @@ class WalletPayment implements Payment
 	private int amount;
 	private static Scanner scanner = new Scanner(System.in);
 
-	public void acceptPayment(int amount)
+	public boolean acceptPayment(int amount)
 	{
 		this.amount = amount;
 		System.out.println("\t\tProcessing Payment for INR" + amount);
@@ -74,6 +75,7 @@ class WalletPayment implements Payment
 		System.out.println("\nEnter phone number:");
 		payeePhoneNumber = scanner.nextInt();
 		System.out.println("\n\n\t\tPayment accepted.");
+		return true;
 	}
 
 	public void displayDetails()
