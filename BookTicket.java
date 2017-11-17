@@ -9,7 +9,6 @@ class BookTicket
 		// show all trains - user selects a train object
 		// show seat availability in the train for all classes
 		// take type of ticket
-		System.out.println("Entering");
 		int classPreference;
 		int paymentPreference;
 		int[] availableSeats;
@@ -36,12 +35,16 @@ class BookTicket
 			default: System.out.println("Wrong class entered. Aborting.."); //use loop instead
 		}
 
-		ticket = Ticket.createTicket(train, "Passenger Name Goes Here"); ////////////////////
-		System.out.println(train + " " + ticket);
-		Passenger passenger; String pname;
-		System.out.println("Enter passenger Name");
+		Passenger passenger; 
+		String pname;
+		System.out.print("Enter passenger name: ");
 		pname = scanner.next();
+
+		ticket = Ticket.createTicket(train, pname); ////////////////////
+		System.out.println(train + " " + ticket);
+
 		passenger = new Passenger(pname, PassengerType.INFANT);
+		RailwayMenu.currentPassenger = passenger;
 		try
 		{
 			train.updatePassengerList(passenger); ////////////////////

@@ -39,7 +39,7 @@ class Railway
 	
 	public void showTicket()
 	{
-	
+		RailwayMenu.currentPassenger.getTicket().display();
 	}
 
 	public void getPassengerDetails(int trainNumber, int ticketNumber)
@@ -52,4 +52,3 @@ class Railway
 		return new PassengerTrain("X", "Y", 4);
 	}
 }
-
