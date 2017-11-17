@@ -49,6 +49,11 @@ class Railway
 	
 	public PassengerTrain getTrain(int trainNumber)
 	{
-		return new PassengerTrain("X", "Y", 4);
+		for (int i = 0; i < 3; i++)
+		{
+			if ( trains[i].tno == trainNumber )
+				return (PassengerTrain)trains[i];
+		}
+		return null;
 	}
 }

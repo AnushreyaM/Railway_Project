@@ -71,6 +71,7 @@ class BookTicket
 		if(payment.acceptPayment(100))
 			passenger.setTicket(ticket); // need to register the fact that passenger has ticket
 
+		System.out.println("Train number "+train.tno);
 		String passengerQuery = "INSERT INTO passenger " + "VALUES("+pno+",\"abc\", \"abc\", \""+pname+
 			"\","+ticket.getTicketNumber()+","+train.tno+")";
 
