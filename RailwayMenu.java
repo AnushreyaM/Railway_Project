@@ -2,6 +2,7 @@ import java.util.*;
 
 class RailwayMenu
 {
+	//private static Passenger currentPassenger;
 	public static void main(String[] args)
 	{
 		/***************************************************

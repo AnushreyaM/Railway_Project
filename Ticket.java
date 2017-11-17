@@ -41,7 +41,7 @@ class Ticket
 		this.train = train;
 	}
 	
-	public static Ticket createTicket(Train t, String passengerName)
+	public static Ticket createTicket(Train t, String passengerName) //useless
 	{
 		/*t = new Ticket(1000, passengerName);
 		System.out.println("called base class");
