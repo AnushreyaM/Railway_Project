@@ -5,7 +5,7 @@ class BookTicket
 {
 	public Ticket ticket = null;
 	public static int pno = 0;
-	public Ticket bookTicket()
+	public Ticket bookTicket() throws Exception
 	{
 		// show all trains - user selects a train object
 		// show seat availability in the train for all classes
@@ -72,7 +72,7 @@ class BookTicket
 			passenger.setTicket(ticket); // need to register the fact that passenger has ticket
 
 		System.out.println("Train number "+train.tno);
-		String passengerQuery = "INSERT INTO passenger " + "VALUES("+pno+",\"abc\", \"abc\", \""+pname+
+		String passengerQuery = "INSERT INTO passenger " + "VALUES("+pno+", \""+pname+
 			"\","+ticket.getTicketNumber()+","+train.tno+")";
 
 		JavaSQL.executeSQLUpdate(passengerQuery);
@@ -84,11 +84,12 @@ class BookTicket
 class Registration extends BookTicket
 {
 	BookTicket bookTicket_obj;
-	
-	public Ticket bookTicket()
+	String uname;
+	String psswd;
+	public Ticket bookTicket() throws Exception
 	{
 		bookTicket_obj = new BookTicket();
-		String username = "abc";
+		
 		String psswd = "abc";
 		ticket = null;
 		System.out.println("Do you want to 1. sign up? or 2. log in?");
@@ -99,17 +100,33 @@ class Registration extends BookTicket
 		switch(choice)
 		{
 			case 1:
-			break;
+				System.out.print("Enter a username:\t");
+				uname = sc.next();
+				System.out.print("Enter password:\t");
+				psswd = sc.next();
+				JavaSQL.executeSQLUpdate("INSERT INTO USERS VALUES(\""+uname+"\",\""+psswd+"\")");
+				choice = 2;
 			case 2:
-				String u = sc.next();
-				String p = sc.next();
-				System.out.println(u+ " "+ username + " " + p + " " + psswd);
-				if (u.equals(username) && p.equals(psswd))
+				boolean loginPending = true;
+
+				do
 				{
+					System.out.println("Enter credentials for logging in");
+					System.out.print("Enter a username:\t");
+					String u = sc.next();
+					System.out.print("Enter password:\t");
+					String p = sc.next();
+
+					ResultSet rs = JavaSQL.executeSQL("Select * from users where uname = \"" +u+ "\""+
+						"and psswd =\""+p+"\"");
+					if(rs.next())
+						loginPending = false;
+				}while(loginPending);
+				
 					System.out.println("Access Granted");
 					ticket = bookTicket_obj.bookTicket();
 					ticket.display();
-				}
+				
 			break;
 		}
 		return ticket;
