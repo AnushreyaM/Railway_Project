@@ -19,7 +19,7 @@ class OOMD
 
 class Ticket 
 {
-	int price;
+	public int price;
 	String name; //passengername
 	private Train train;
 	private int ticketNumber;

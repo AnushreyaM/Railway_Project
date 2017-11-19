@@ -5,7 +5,7 @@ class Railway
 {
 
 	private static Railway railway;
-	public Train[] trains = new Train[3];
+	public Train[] trains;// = new Train[3]; //size taken care of in RailwayMenu class
 	
 	public static Railway getInstance()
 	{
@@ -29,7 +29,7 @@ class Railway
 		}
 	}
 	
-	public void bookTicket()
+	public void bookTicket() throws Exception
 	{
 		
 		Registration r = new Registration();
@@ -37,7 +37,7 @@ class Railway
 		t.display();
 	}
 	
-	public void showTicket()
+	public void showTicket() // this should be present in passenger class
 	{
 		RailwayMenu.currentPassenger.getTicket().display();
 	}

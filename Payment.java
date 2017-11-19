@@ -1,31 +1,5 @@
 import java.util.*;
 
-/*class Payment
-{
-	int amount;
-	Passenger passenger;
-	
-	public static void gateway()
-	{
-
-		Scanner scanner = new Scanner();
-		int choice;
-
-		System.out.println("Select Payment Method");
-		System.out.println("1. Card");
-		System.out.println("2. Wallet");
-		System.out.print("Enter your choice (1/2):\t");
-
-		choice = scanner.nextInt();
-
-		switch(choice)
-		{
-			case 1: acceptcardPayment(); break;
-			case 2: accept
-		}
-	}
-}*/
-
 interface Payment
 {
 	public boolean acceptPayment(int amount); // changed return type to boolean, need to see if accepted or not

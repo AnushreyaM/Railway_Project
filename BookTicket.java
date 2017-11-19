@@ -43,9 +43,11 @@ class BookTicket
 
 
 		ticket = Ticket.createTicket(train, pname); ////////////////////
-		String ticketQuery = "INSERT INTO ticket VALUES("+ticket.getTicketNumber()+", "+train.tno+", \""+
-			pname+"\""+")";
+		String ticketQuery = "INSERT INTO ticket(trainNo, pname) VALUES("+train.tno+", \""+pname+"\""+")";
 		JavaSQL.executeSQLUpdate(ticketQuery);
+		ticketQuery = "SELECT MAX(tid) FROM ticket";
+		ResultSet resultSet = JavaSQL.executeSQL(ticketQuery);
+		int ticketNumber = resultSet ? resultSet.next().getInt(1) : -1;
 
 		passenger = new Passenger(pname, PassengerType.INFANT);
 		RailwayMenu.currentPassenger = passenger;
@@ -68,12 +70,12 @@ class BookTicket
 			case 1: payment = new CardPayment(); break;
 			case 2: payment = new WalletPayment(); break;
 		}
-		if(payment.acceptPayment(100))
+		if(payment.acceptPayment(ticket.price))
 			passenger.setTicket(ticket); // need to register the fact that passenger has ticket
 
 		System.out.println("Train number "+train.tno);
 		String passengerQuery = "INSERT INTO passenger " + "VALUES("+pno+", \""+pname+
-			"\","+ticket.getTicketNumber()+","+train.tno+")";
+			"\","+ticketNumber+","+train.tno+")";
 
 		JavaSQL.executeSQLUpdate(passengerQuery);
 		pno++;  // new passenger id
@@ -104,7 +106,7 @@ class Registration extends BookTicket
 				uname = sc.next();
 				System.out.print("Enter password:\t");
 				psswd = sc.next();
-				JavaSQL.executeSQLUpdate("INSERT INTO USERS VALUES(\""+uname+"\",\""+psswd+"\")");
+				JavaSQL.executeSQLUpdate("INSERT INTO users VALUES(\""+uname+"\",\""+psswd+"\")");
 				choice = 2;
 			case 2:
 				boolean loginPending = true;
@@ -121,6 +123,10 @@ class Registration extends BookTicket
 						"and psswd =\""+p+"\"");
 					if(rs.next())
 						loginPending = false;
+					else
+					{
+						System.out.println("Invalid credentials. Try again.");
+					}
 				}while(loginPending);
 				
 					System.out.println("Access Granted");

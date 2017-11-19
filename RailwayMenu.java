@@ -3,7 +3,8 @@ import java.sql.*;
 
 class RailwayMenu
 {
-	public static Passenger currentPassenger;
+	public static Passenger currentPassenger = null;
+	
 	public static void main(String[] args) throws Exception
 	{
 		/***************************************************
@@ -12,11 +13,20 @@ class RailwayMenu
 		Railway railway = Railway.getInstance();  
 		ResultSet rs = JavaSQL.executeSQL("select * from train");  
 		int i = 0;
+		int rows;
 		while(rs!=null && rs.next()) 
 		{ 
-				/***************************************************
-				**                      Liskov                    **
-				****************************************************/
+			if(i == 0)
+			{
+				rs.last();
+				rows = rs.getRow();
+				rs.first();
+				railway.trains = new Train[rows];
+			}
+
+			/***************************************************
+			**                      Liskov                    **
+			****************************************************/
 			railway.trains[i++] = new PassengerTrain(rs.getString(1), rs.getString(2), rs.getInt(6));
 		}
 
