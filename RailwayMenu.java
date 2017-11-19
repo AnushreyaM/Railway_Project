@@ -4,6 +4,7 @@ import java.sql.*;
 class RailwayMenu
 {
 	public static Passenger currentPassenger = null;
+	public static String currentUsername = null;
 
 	public static void main(String[] args) throws Exception
 	{

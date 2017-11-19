@@ -82,8 +82,12 @@ class BookTicket
 			passenger.setTicket(ticket); // need to register the fact that passenger has ticket
 
 		System.out.println("Train number "+train.tno);
-		String passengerQuery = "INSERT INTO passenger " + "VALUES("+pno+", \""+pname+
-			"\","+ticketNumber+","+train.tno+")";
+		/*String passengerQuery = "INSERT INTO passenger " + "VALUES("+pno+", \""+pname+
+			"\","+ticketNumber+","+train.tno+")"; //SCHEMA CHANGED NOE
+			*/
+		String passengerQuery = "INSERT INTO passenger VALUES(\'" + RailwayMenu.currentUsername + "\', \'"
+								+ pname + "\', " + ticketNumber + ")";
+		System.out.println("====>" + passengerQuery);
 
 		JavaSQL.executeSQLUpdate(passengerQuery);
 		pno++;  // new passenger id
@@ -114,8 +118,9 @@ class Registration extends BookTicket
 				uname = sc.next();
 				System.out.print("Enter password:\t");
 				psswd = sc.next();
+				//RailwayMenu.currentUsername = uname;
 				JavaSQL.executeSQLUpdate("INSERT INTO users VALUES(\""+uname+"\",\""+psswd+"\")");
-				choice = 2;
+				choice = 2; //unnecessary?
 			case 2:
 				boolean loginPending = true;
 
@@ -124,6 +129,7 @@ class Registration extends BookTicket
 					System.out.println("Enter credentials for logging in");
 					System.out.print("Enter a username:\t");
 					String u = sc.next();
+					RailwayMenu.currentUsername = u;
 					System.out.print("Enter password:\t");
 					String p = sc.next();
 
