@@ -47,10 +47,18 @@ class BookTicket
 		JavaSQL.executeSQLUpdate(ticketQuery);
 		ticketQuery = "SELECT MAX(tid) FROM ticket";
 		ResultSet resultSet = JavaSQL.executeSQL(ticketQuery);
-		int ticketNumber = resultSet ? resultSet.next().getInt(1) : -1;
+		int ticketNumber = -1;
+		if(resultSet != null)
+		{
+			resultSet.next();
+			ticketNumber = resultSet.getInt(1);
+		}
+
+		ticket.setTicketNumber(ticketNumber);
 
 		passenger = new Passenger(pname, PassengerType.INFANT);
 		RailwayMenu.currentPassenger = passenger;
+		RailwayMenu.currentPassenger.setTicket(ticket);
 		try
 		{
 			train.updatePassengerList(passenger); ////////////////////

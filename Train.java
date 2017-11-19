@@ -61,7 +61,7 @@ class PassengerTrain extends Train
     	return seats;
     }
    
-   void updatePassengerList(Passenger p) throws SeatsNotAvailableException
+   void updatePassengerList(Passenger p) throws SeatsNotAvailableException //do we need this, now that we have a DB?
    {
    		System.out.println("Updating passengerList");
         try

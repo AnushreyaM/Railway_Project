@@ -30,6 +30,11 @@ class Ticket
 		return this.ticketNumber;
 	}
 
+	public void setTicketNumber(int ticketNumber)
+	{
+		this.ticketNumber = ticketNumber;
+	}
+
 	protected Ticket()
 	{
 

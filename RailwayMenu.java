@@ -4,16 +4,19 @@ import java.sql.*;
 class RailwayMenu
 {
 	public static Passenger currentPassenger = null;
-	
+
 	public static void main(String[] args) throws Exception
 	{
+		int i = 0;
+		int ch;
+		int rows;
+
 		/***************************************************
 		**                    Singleton                   **
 		****************************************************/
 		Railway railway = Railway.getInstance();  
-		ResultSet rs = JavaSQL.executeSQL("select * from train");  
-		int i = 0;
-		int rows;
+		ResultSet rs = JavaSQL.executeSQL("SELECT * FROM train");  
+
 		while(rs!=null && rs.next()) 
 		{ 
 			if(i == 0)
@@ -29,21 +32,21 @@ class RailwayMenu
 			****************************************************/
 			railway.trains[i++] = new PassengerTrain(rs.getString(1), rs.getString(2), rs.getInt(6));
 		}
-
-		int ch;
-
 		do
 		{
-		
-			System.out.println("Enter your choice: ");
+			displaySeparator();		
+			System.out.println("-----Menu-----");
 			System.out.println("1. See all trains");
 			System.out.println("2. Book a ticket");
 			System.out.println("3. Show ticket");
 			System.out.println("9. Quit");
+			displaySeparator();
+			System.out.println("Enter your choice: ");
 
 			Scanner sc = new Scanner(System.in);
 			ch = sc.nextInt();
-			
+			displaySeparator();
+			System.out.println("\n\n\n");
 			
 			switch( ch )
 			{
@@ -63,6 +66,15 @@ class RailwayMenu
 			}
 		
 		}while(ch != 9);
+	}
+
+	public static void displaySeparator()
+	{
+		for(int i = 0; i < 100; ++i)
+		{
+			System.out.print("-");
+		}
+		System.out.println();
 	}
 
 }
