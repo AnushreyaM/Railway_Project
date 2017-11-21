@@ -19,7 +19,7 @@ class OOMD
 
 class Ticket 
 {
-	public int price;
+	public static int price;
 	String name; //passengername
 	private Train train;
 	private int ticketNumber;
@@ -35,9 +35,9 @@ class Ticket
 		this.ticketNumber = ticketNumber;
 	}
 
-	protected Ticket()
+	public Ticket()
 	{
-
+		price = 1000;
 	}
 	protected Ticket(int price, String passengerName, Train train)
 	{
@@ -51,7 +51,7 @@ class Ticket
 		/*t = new Ticket(1000, passengerName);
 		System.out.println("called base class");
 		return t;*/
-		return new Ticket(1000, passengerName, t);
+		return new Ticket(price, passengerName, t);
 	}
 
 	public void display()
@@ -72,10 +72,14 @@ class FirstClass extends Ticket
 	//Ticket t; //not needed, FirstClass already extends Ticket
 	
 
+	public FirstClass()
+	{
+		price = 3000;
+	}
 	public static Ticket createTicket(Train t, String passengerName)
 	{
 
-		return new Ticket(3000, passengerName, t);
+		return new Ticket(price, passengerName, t);
 		//System.out.println("called firstclass");
 		//return t;
 	}
@@ -85,10 +89,13 @@ class SecondClass extends Ticket
 {
 	//Ticket t;
 	
-
+	public SecondClass()
+	{
+		price = 1000;
+	}
 	public static Ticket createTicket(Train t, String passengerName)
 	{
-		return new Ticket(2000, passengerName, t);
+		return new Ticket(price, passengerName, t);
 		//System.out.println("called secondclass");
 		//return t;
 	}
@@ -98,10 +105,13 @@ class SecondClass extends Ticket
 class EconomyClass extends Ticket
 {
 	//Ticket t;
-	
+	public EconomyClass()
+	{
+		price = 500;
+	}
 	public static Ticket createTicket(Train t, String passengerName)
 	{
-		return new Ticket(500, passengerName, t);
+		return new Ticket(price, passengerName, t);
 		//System.out.println("called economyclass");
 		//return t;
 	}

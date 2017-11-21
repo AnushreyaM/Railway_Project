@@ -38,9 +38,15 @@ class BookTicket
 				ResultSet rl1 = JavaSQL.executeSQL("SELECT cur_first_class from train");
 				rl1.next();
 				chk = rl1.getInt(1);
+				int food_choice;
+				System.out.println("Want food? 1.yes, 2.no");
+				food_choice = scanner.nextInt();
 				if(chk > 0)	
 				{
-					ticket = new FirstClass();
+					if(food_choice == 0)
+						ticket = new FirstClass();
+					else
+						ticket = (new addFoodFirst()).t;
 					String trainQuery1 = "UPDATE train SET cur_first_class = cur_first_class - 1 WHERE tno="+train.tno;
 					JavaSQL.executeSQLUpdate(trainQuery1);					 
 				}
