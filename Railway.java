@@ -24,10 +24,14 @@ class Railway
 	
 	public void showTrains()
 	{
+		Scanner sc = new Scanner(System.in);
 		for(Train t: trains)
 		{
 			t.display();
 		}
+		//System.out.println("Press 1 to go back to menu");
+		//char ch1 = sc.next().charAt(0);
+		//System.out.print("\033[2J\033[1;1H");
 	}
 	
 	public void bookTicket() throws Exception
