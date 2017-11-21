@@ -1,6 +1,5 @@
 import java.util.*;
 import java.sql.*;
-
 class RailwayMenu
 {
 	public static Passenger currentPassenger = null;
@@ -46,9 +45,11 @@ class RailwayMenu
 
 			Scanner sc = new Scanner(System.in);
 			ch = sc.nextInt();
+			System.out.print("\033[2J\033[1;1H");
 			displaySeparator();
 			System.out.println("\n\n\n");
-			
+			//Runtime.getRuntime().exec("clear");
+			System.out.print("\033[2J\033[1;1H");
 			switch( ch )
 			{
 				case 1:
@@ -64,8 +65,11 @@ class RailwayMenu
 					System.out.println("Enter train number and ticket number:\t");
 					railway.getPassengerDetails(sc.nextInt(), sc.nextInt());
 					break;
+				case 9: System.exit(0);
 			}
-		
+			System.out.println("Press 1 to go back to menu");
+			char ch1 = sc.next().charAt(0);
+			System.out.print("\033[2J\033[1;1H");
 		}while(ch != 9);
 	}
 

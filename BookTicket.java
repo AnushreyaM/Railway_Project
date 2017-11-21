@@ -23,16 +23,58 @@ class BookTicket
 		train = railway.getTrain(scanner.nextInt());
 		availableSeats = train.getAvailableSeats();
 		
+		
+		
 		System.out.print("Seat availability for First (1), Second (2) and Economy (3) classes:\t");
 		System.out.println(availableSeats[1] + ", " + availableSeats[2] + ", " + availableSeats[3]);
 		System.out.print("Enter class preference (1/2/3):\t");
 		classPreference = scanner.nextInt();
-
+		
+		int chk;
+				
 		switch(classPreference)
 		{
-			case 1: ticket = new FirstClass(); break;
-			case 2: ticket = new SecondClass(); break;
-			case 3: ticket = new EconomyClass(); break;
+			case 1: 
+				ResultSet rl1 = JavaSQL.executeSQL("SELECT cur_first_class from train");
+				rl1.next();
+				chk = rl1.getInt(1);
+				if(chk > 0)	
+				{
+					ticket = new FirstClass();
+					String trainQuery1 = "UPDATE train SET cur_first_class = cur_first_class - 1 WHERE tno="+train.tno;
+					JavaSQL.executeSQLUpdate(trainQuery1);					 
+				}
+				else
+					System.out.println("No seats available in this class!");
+				break;
+		
+			case 2: ResultSet rl2 = JavaSQL.executeSQL("SELECT cur_second_class from train");
+				rl2.next();
+				chk = rl2.getInt(1);
+				if(chk > 0)	
+				{
+					ticket = new SecondClass();
+					String trainQuery2 = "UPDATE train SET cur_second_class = cur_first_class - 1 WHERE tno="+train.tno;
+					JavaSQL.executeSQLUpdate(trainQuery2); 
+				}
+				else
+					System.out.println("No seats available in this class!");
+				break;
+		
+			case 3: ResultSet rl3 = JavaSQL.executeSQL("SELECT cur_economy_class from train");
+				rl3.next();
+				chk = rl3.getInt(1);
+				if(chk > 0)	
+				{
+					ticket = new EconomyClass();
+					String trainQuery3 = "UPDATE train SET cur_economy_class = cur_first_class - 1 WHERE  tno="+train.tno;				
+					JavaSQL.executeSQLUpdate(trainQuery3); 
+				}
+				else
+					System.out.println("No seats available in this class!");
+				
+				break;
+		
 			default: System.out.println("Wrong class entered. Aborting.."); //use loop instead
 		}
 
@@ -41,6 +83,9 @@ class BookTicket
 		System.out.print("Enter passenger name: ");
 		pname = scanner.next();
 
+		
+		
+		
 
 		ticket = Ticket.createTicket(train, pname); ////////////////////
 		String ticketQuery = "INSERT INTO ticket(trainNo, pname) VALUES("+train.tno+", \""+pname+"\""+")";
@@ -144,6 +189,9 @@ class Registration extends BookTicket
 				}while(loginPending);
 				
 					System.out.println("Access Granted");
+					System.out.println("Press 1 to go back to menu");
+					char ch1 = sc.next().charAt(0);
+					System.out.print("\033[2J\033[1;1H");
 					ticket = bookTicket_obj.bookTicket();
 					ticket.display();
 				
