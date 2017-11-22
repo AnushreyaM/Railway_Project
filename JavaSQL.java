@@ -8,7 +8,7 @@ class JavaSQL
 		try
 		{  
 			Class.forName("com.mysql.jdbc.Driver");  
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/Railway?useSSL=false", "root", "");  
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/Railway?useSSL=false", "root", "abcd");  
 			Statement stmt=con.createStatement();  
 			ResultSet rs=stmt.executeQuery(SQLQuery);  
 
@@ -27,7 +27,7 @@ class JavaSQL
 		try
 		{  
 			Class.forName("com.mysql.jdbc.Driver");  
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Railway?useSSL=false", "root", "");  
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/Railway?useSSL=false", "root", "abcd");  
 			Statement stmt = con.createStatement();  
 			int res = stmt.executeUpdate(SQLQuery);  
 			System.out.println(res);

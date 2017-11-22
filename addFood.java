@@ -22,10 +22,10 @@ class addFoodFirst extends addFood
 			switch(ch)
 			{
 				case 1:
-					price = 1500;
+					price = 3500;
 					break;
 				case 2:
-					price = 2000;
+					price = 4000;
 					break;
 				default:
 					System.out.println("Please select a valid option");

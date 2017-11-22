@@ -17,75 +17,87 @@ class BookTicket
 		Scanner scanner = new Scanner(System.in);
 		PassengerTrain train = null;
 		Railway railway = Railway.getInstance();
-		
-		railway.showTrains();
-		System.out.print("Enter Train ID:\t");
-		train = railway.getTrain(scanner.nextInt());
-		availableSeats = train.getAvailableSeats();
-		
-		
-		
-		System.out.print("Seat availability for First (1), Second (2) and Economy (3) classes:\t");
-		System.out.println(availableSeats[1] + ", " + availableSeats[2] + ", " + availableSeats[3]);
-		System.out.print("Enter class preference (1/2/3):\t");
-		classPreference = scanner.nextInt();
-		
-		int chk;
-				
-		switch(classPreference)
+		boolean flag = true;
+		do
 		{
-			case 1: 
-				ResultSet rl1 = JavaSQL.executeSQL("SELECT cur_first_class from train");
-				rl1.next();
-				chk = rl1.getInt(1);
-				int food_choice;
-				System.out.println("Want food? 1.yes, 2.no");
-				food_choice = scanner.nextInt();
-				if(chk > 0)	
-				{
-					if(food_choice == 0)
-						ticket = new FirstClass();
-					else
-						ticket = (new addFoodFirst()).t;
-					String trainQuery1 = "UPDATE train SET cur_first_class = cur_first_class - 1 WHERE tno="+train.tno;
-					JavaSQL.executeSQLUpdate(trainQuery1);					 
-				}
-				else
-					System.out.println("No seats available in this class!");
-				break;
+		//	System.out.print("\033[2J\033[1;1H");
+			railway.showTrains();
+			System.out.print("Enter Train ID:\t");
+			train = railway.getTrain(scanner.nextInt());
+			availableSeats = train.getAvailableSeats();
 		
-			case 2: ResultSet rl2 = JavaSQL.executeSQL("SELECT cur_second_class from train");
-				rl2.next();
-				chk = rl2.getInt(1);
-				if(chk > 0)	
-				{
-					ticket = new SecondClass();
-					String trainQuery2 = "UPDATE train SET cur_second_class = cur_first_class - 1 WHERE tno="+train.tno;
-					JavaSQL.executeSQLUpdate(trainQuery2); 
-				}
-				else
-					System.out.println("No seats available in this class!");
-				break;
 		
-			case 3: ResultSet rl3 = JavaSQL.executeSQL("SELECT cur_economy_class from train");
-				rl3.next();
-				chk = rl3.getInt(1);
-				if(chk > 0)	
-				{
-					ticket = new EconomyClass();
-					String trainQuery3 = "UPDATE train SET cur_economy_class = cur_first_class - 1 WHERE  tno="+train.tno;				
-					JavaSQL.executeSQLUpdate(trainQuery3); 
-				}
-				else
-					System.out.println("No seats available in this class!");
+		
+			//System.out.print("Seat availability for First (1), Second (2) and Economy (3) classes:\t");
+			//System.out.println(availableSeats[1] + ", " + availableSeats[2] + ", " + availableSeats[3]);
+			System.out.print("Enter class preference (1/2/3):\t");
+			classPreference = scanner.nextInt();
+			availableSeats[classPreference]--;
+		
+			int chk;
 				
-				break;
+			switch(classPreference)
+			{
+				case 1: 
+					ResultSet rl1 = JavaSQL.executeSQL("SELECT cur_first_class from train WHERE tno="+train.tno);
+					rl1.next();
+					chk = rl1.getInt(1);
+					if(chk > 0)	
+					{
+						int food_choice;
+						System.out.print("\033[2J\033[1;1H");
+						System.out.println("Want food? 1.yes, 2.no");
+						food_choice = scanner.nextInt();
+					
+						if(food_choice == 0)
+							ticket = new FirstClass();
+						else
+							ticket = (new addFoodFirst()).t;
+						String trainQuery1 = "UPDATE train SET cur_first_class = cur_first_class - 1 WHERE tno="+train.tno;
+						JavaSQL.executeSQLUpdate(trainQuery1);
+						flag = false;					 
+					}
+					else
+					{	
+						System.out.println("No seats available in this class!\n\n");
+						
+					}break;
 		
-			default: System.out.println("Wrong class entered. Aborting.."); //use loop instead
-		}
-
+				case 2: ResultSet rl2 = JavaSQL.executeSQL("SELECT cur_second_class from train");
+					rl2.next();
+					chk = rl2.getInt(1);
+					if(chk > 0)	
+					{
+						ticket = new SecondClass();
+						String trainQuery2 = "UPDATE train SET cur_second_class = cur_first_class - 1 WHERE tno="+train.tno;
+						JavaSQL.executeSQLUpdate(trainQuery2); 
+						flag = false;
+					}
+					else
+						System.out.println("No seats available in this class!\n\n");
+					break;
+		
+				case 3: ResultSet rl3 = JavaSQL.executeSQL("SELECT cur_economy_class from train");
+					rl3.next();
+					chk = rl3.getInt(1);
+					if(chk > 0)	
+					{
+						ticket = new EconomyClass();
+						String trainQuery3 = "UPDATE train SET cur_economy_class = cur_first_class - 1 WHERE  tno="+train.tno;				
+						JavaSQL.executeSQLUpdate(trainQuery3);
+						flag = false; 
+					}
+					else
+						System.out.println("No seats available in this class!\n\n");
+				
+					break;
+		
+				default: System.out.println("Wrong class entered. Aborting.."); //use loop instead
+			}
+		} while(flag != false);
 		Passenger passenger; 
 		String pname;
+		//System.out.print("\033[2J\033[1;1H");
 		System.out.print("Enter passenger name: ");
 		pname = scanner.next();
 
@@ -118,7 +130,7 @@ class BookTicket
 		{
 			System.out.println(e);
 		}
-
+		System.out.print("\033[2J\033[1;1H");
 		System.out.println("1. Card");
 		System.out.println("2. Wallet");
 		System.out.print("Enter payment preference:\t");
@@ -138,7 +150,7 @@ class BookTicket
 			*/
 		String passengerQuery = "INSERT INTO passenger VALUES(\'" + RailwayMenu.currentUsername + "\', \'"
 								+ pname + "\', " + ticketNumber + ")";
-		System.out.println("====>" + passengerQuery);
+		//System.out.println("====>" + passengerQuery);
 
 		JavaSQL.executeSQLUpdate(passengerQuery);
 		pno++;  // new passenger id
@@ -191,6 +203,7 @@ class Registration extends BookTicket
 					else
 					{
 						System.out.println("Invalid credentials. Try again.");
+						System.out.print("\033[2J\033[1;1H");
 					}
 				}while(loginPending);
 				

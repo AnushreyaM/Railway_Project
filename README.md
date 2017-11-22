@@ -11,6 +11,8 @@ A Railway Reservation Portal to demonstrate the uses of various design patterns 
 
 ## Instructions
 
+Execute schema.sql and data.sql at localhost/phpmyadmin
+
 Download mysql-connector and set the classpath as:
 
 ```
